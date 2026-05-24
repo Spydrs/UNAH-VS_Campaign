@@ -33,5 +33,3 @@ La campaña simula un correo de suplantación de identidad (phishing) dirigido a
 
 4. **Visualización de resultados**  
    Las credenciales capturadas se guardan localmente para su análisis en el entorno controlado del laboratorio.
-
-> **Nota:** En un entorno real, este código se ejecutaría en un servidor web controlado por el atacante. En nuestro caso, todo se ejecuta localmente para aprender a reconocer estas amenazas.
