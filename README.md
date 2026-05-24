@@ -1,6 +1,6 @@
 # UNAH-VS Phishing Campaign
 
-![Logo](./images/phishing_logo.png)
+![Logo](./images/image.png)
 
 > **Repositorio público para la clase de Seminario de Investigación**
 
