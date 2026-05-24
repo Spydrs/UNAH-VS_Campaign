@@ -1,6 +1,6 @@
 # UNAH-VS Phishing Campaign
 
-![Logo](https://cdn.soydehonduras.com/2023/01/17/1200x400_unah-conoce-su-historia-y-algunos-datos-interesantes_1674009920.webp)
+![Logo](./images/phishing_logo.png)
 
 > **Repositorio público para la clase de Seminario de Investigación**
 
