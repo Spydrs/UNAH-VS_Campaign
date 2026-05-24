@@ -1,5 +1,7 @@
 # UNAH-VS Phishing Campaign
 
+![Logo](https://cdn.soydehonduras.com/2023/01/17/1200x400_unah-conoce-su-historia-y-algunos-datos-interesantes_1674009920.webp)
+
 > **Repositorio público para la clase de Seminario de Investigación**
 
 Este repositorio contiene una simulación educativa de una campaña de phishing. El objetivo es demostrar cómo funcionan los ataques de phishing, cómo se pueden detectar y qué medidas tomar para protegerse.
@@ -33,7 +35,3 @@ La campaña simula un correo de suplantación de identidad (phishing) dirigido a
    Las credenciales capturadas se guardan localmente para su análisis en el entorno controlado del laboratorio.
 
 > **Nota:** En un entorno real, este código se ejecutaría en un servidor web controlado por el atacante. En nuestro caso, todo se ejecuta localmente para aprender a reconocer estas amenazas.
-
----
-
-## Estructura del repositorio
