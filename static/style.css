@@ -582,6 +582,17 @@ p {
     font-size: 1.3125rem;
 }
 
+/* Email-step helper links ("No account?", "Can't access?", "Forgot password?") */
+.email-links-text,
+.email-links-text-a {
+    font-size: 19px;
+}
+
+.email-links-text a,
+.email-links-text-a {
+    font-size: 19px;
+}
+
 .emailinput,
 .passwordinput {
     font-size: 22px;
@@ -721,6 +732,17 @@ p {
 
     p {
         font-size: 0.9rem;
+    }
+
+    /* Shrink email-step helper links on phones */
+    .email-links-text,
+    .email-links-text-a {
+        font-size: 13px !important;
+    }
+
+    .email-links-text a,
+    .email-links-text-a {
+        font-size: 13px !important;
     }
 
     /* 8. Button row */

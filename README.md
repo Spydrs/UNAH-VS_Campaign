@@ -20,7 +20,9 @@ Este repositorio contiene una simulación educativa de una campaña de phishing.
 
 ## ¿Cómo funciona?
 
-La campaña simula un correo de suplantación de identidad (phishing) dirigido a usuarios de una organización ficticia. El flujo básico es:
+La campaña de phishing simula un ataque de ingeniería social dirigído a estudiantes de UNAH-VS mediante  enlaces a páginas de inicio de sesión falsas de Outlook (https://unah-hn.com/). 
+
+El flujo básico es:
 
 1. **Generación de credenciales falsas**  
    El script `phishing.py` crea combinaciones de nombres/apellidos para simular víctimas potenciales.
