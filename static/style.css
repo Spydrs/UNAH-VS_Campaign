@@ -569,6 +569,7 @@ a:hover,
 /* Larger and bolder fonts */
 body {
     font-size: 22px;
+    zoom: 0.8;
 }
 
 /* Removed prompt overrides to preserve standard user font-size */
