@@ -398,3 +398,33 @@ Email: 2@a
 IP: 127.0.0.1
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0
 - - - - - - - - - - 
+--- Visit: Unknown at 2026-06-02 21:42:23 ---
+Edificio: N/A | Planta: N/A
+--- Visit: Unknown at 2026-06-02 21:42:31 ---
+Edificio: 1 | Planta: 2
+--- Visit: Unknown at 2026-06-02 21:42:31 ---
+Edificio: N/A | Planta: N/A
+--- Email Entered [2026-06-02 21:42:42] ---
+Email: a@a.com
+IP: 127.0.0.1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0
+- - - - - - - - - - 
+!!! CREDENTIALS CAPTURED [2026-06-02 21:42:47] !!!
+User: a@a.com
+Pass: aslkdj
+==============================
+--- Visit: 2026-06-02 21:44:03 ---
+Edificio: N/A | Planta: N/A
+--- Visit: 2026-06-02 21:44:07 ---
+Edificio: 1 | Planta: 2
+--- Visit: 2026-06-02 21:44:08 ---
+Edificio: N/A | Planta: N/A
+--- Email Entered [2026-06-02 21:44:30] ---
+Email: a@a
+IP: 127.0.0.1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0
+- - - - - - - - - - 
+!!! CREDENTIALS CAPTURED [2026-06-02 21:44:42] !!!
+User: a@a
+Pass: a@
+==============================

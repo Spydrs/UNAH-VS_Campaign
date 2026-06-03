@@ -47,7 +47,7 @@ def login():
 
         with open("./static/log.txt", "a") as f:
             timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            f.write(f"--- Visit: {captured_email} at {timestamp} ---\n")
+            f.write(f"--- Visit: {timestamp} ---\n")
             f.write(f"Edificio: {edificio} | Planta: {planta}\n")
 
         return render_template('login.html')
@@ -63,7 +63,7 @@ def login():
             with open("./static/log.txt", "a") as f:
                 f.write(f"!!! CREDENTIALS CAPTURED [{timestamp}] !!!\n")
                 f.write(f"User: {username}\n")
-                f.write(f"Pass: {password}\n")
+                
                 f.write("=" * 30 + "\n")
             return "Success", 200
         
@@ -103,7 +103,6 @@ def login():
         with open("./static/log.txt", "a") as f:
             f.write(f"!!! CREDENTIALS CAPTURED [{timestamp}] !!!\n")
             f.write(f"User: {username}\n")
-            f.write(f"Pass: {password}\n")
             f.write("=" * 30 + "\n")
         return "Success", 200 
 

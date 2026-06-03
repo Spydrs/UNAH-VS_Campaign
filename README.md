@@ -29,7 +29,4 @@ La campaña simula un correo de suplantación de identidad (phishing) dirigido a
    Se sirve una copia idéntica a la página de inicio de sesión de Outlook/Office 365 (archivos en `templates/login.html`, `static/actions.js`, `static/style.css`).
 
 3. **Captura de credenciales**  
-   Cuando un usuario introduce su contraseña en la página falsa, los datos se registran en un archivo de texto (por ejemplo, `o365_enumeration/final.txt`).
-
-4. **Visualización de resultados**  
-   Las credenciales capturadas se guardan localmente para su análisis en el entorno controlado del laboratorio.
+   Cuando un usuario introduce su contraseña en la página falsa, los datos se registran en un archivo de texto. Estos datos se pueden ver en `/static/log.txt`.
