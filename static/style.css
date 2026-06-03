@@ -619,3 +619,181 @@ p {
     object-fit: contain;
     display: block;
 }
+
+/* ============================================================
+   MOBILE / PHONE  (≤ 480px)
+   Goal: the entire sign-in box fits on screen, no scrolling.
+   ============================================================ */
+@media screen and (max-width: 480px) {
+
+    /* 1. Reset desktop zoom — mobile browsers already handle
+          scaling via the viewport meta tag. */
+    body {
+        zoom: 1;
+        font-size: 16px;
+        line-height: 1.4;
+        /* Prevent the background from causing horizontal scroll */
+        overflow-x: hidden;
+    }
+
+    /* 2. Make the centering wrapper use flex so the box
+          stays vertically centered within the visible screen. */
+    .outer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100dvh;   /* dynamic viewport height */
+        height: auto;
+        width: 100%;
+        padding: 16px 0 60px; /* bottom gap clears fixed footer */
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .middle {
+        display: block;
+        vertical-align: unset;
+        width: 100%;
+    }
+
+    /* 3. Sign-in box: full-width, compact padding, no min-width. */
+    .sign-in-box {
+        width: calc(100% - 24px);
+        max-width: 100%;
+        min-width: unset !important;
+        min-height: unset !important;
+        padding: 28px 24px 20px 24px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+
+    /* Password step has explicit padding overrides — reset them too. */
+    #password-step {
+        min-height: unset !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Sign-in options view */
+    #signin-options-view {
+        min-width: unset !important;
+        max-width: 100%;
+        padding: 24px 24px 16px 24px;
+    }
+
+    /* 4. Logo */
+    #logo_image,
+    #logo_image_3 {
+        height: 34px;
+    }
+
+    #logo_image_2 {
+        width: 130px;
+        height: 30px;
+        margin: 6px 0;
+    }
+
+    /* 5. Heading / prompt */
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .prompt {
+        font-size: 1.4rem;
+        line-height: 1.7rem;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    /* 6. Inputs */
+    .emailinput,
+    .passwordinput {
+        font-size: 16px !important;
+        padding: 8px 0 !important;
+    }
+
+    /* 7. Links */
+    a {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    /* 8. Button row */
+    .buttoncontainer {
+        height: 40px;
+        margin-top: 16px;
+        margin-bottom: 12px;
+    }
+
+    .button {
+        padding: 8px 20px;
+        width: 100px;
+        font-size: 14px;
+    }
+
+    /* 9. Grey boilerplate band — pull to the compressed padding edges */
+    .boilerplate-box {
+        margin-left: -24px;
+        margin-right: -24px;
+        padding: 14px 24px;
+        font-size: 0.82rem;
+    }
+
+    .boilerplate-box p {
+        font-size: 0.82rem;
+        line-height: 1.2rem;
+    }
+
+    /* 10. Hide the floating "Sign-in options" strip below the box —
+           it pushes content off-screen on small phones.
+           Users can still access options inside the sign-in-options view. */
+    .signin-options {
+        display: none !important;
+    }
+
+    /* 11. Troubleshoot panel */
+    .troubleshoot-container {
+        padding: 20px 24px !important;
+        max-height: 260px;
+    }
+
+    /* 12. Footer stays pinned at the bottom */
+    .footer {
+        padding: 6px 16px;
+    }
+
+    .footertext a,
+    .footertext span {
+        font-size: 11px;
+        margin-left: 14px;
+    }
+
+    /* 13. Back button */
+    .back-button {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    /* 14. Sign-in option items inside the options view */
+    .option-title {
+        font-size: 16px;
+    }
+
+    .option-subtitle {
+        font-size: 14px;
+    }
+
+    .signin-option-item {
+        padding: 18px 0;
+    }
+
+    .option-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
