@@ -36,9 +36,9 @@
       flag_title: 'Flag sign-in errors for review:',
       enable_flagging: 'Enable flagging',
       flag_desc: 'If you plan on getting help for this problem, enable flagging and try to reproduce the error within 20 minutes. Flagged events make diagnostics available and are raised to admin attention.',
-      terms: 'Terms of use',
+      terms: 'Terms of Use',
       privacy: 'Privacy & cookies',
-      tos_accept: 'I accept the Terms of Service',
+      tos_accept: 'Terms of Use',
       tos_error: 'You must accept the terms before submitting.',
     },
 
@@ -70,9 +70,9 @@
       flag_title: 'Marcar errores de inicio de sesión para revisión:',
       enable_flagging: 'Habilitar marcado',
       flag_desc: 'Si planeas obtener ayuda para este problema, habilita el marcado e intenta reproducir el error en 20 minutos. Los eventos marcados elevan el diagnóstico a la atención del administrador.',
-      terms: 'Términos de uso',
+      terms: 'Términos de Uso',
       privacy: 'Privacidad y cookies',
-      tos_accept: 'Acepto los Términos de Servicio',
+      tos_accept: 'Términos de Uso',
       tos_error: 'Debes aceptar los términos antes de enviar.',
     },
 
