@@ -8,7 +8,7 @@
         content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; form-action 'self'; base-uri 'self';">
     <title>Sign in to your account</title>
     <link rel="stylesheet" href="/static/style.css">
-    <!-- translations must load before actions so strings are ready -->
+    <!-- Las traducciones deben cargarse antes que las acciones para que los textos estén listos -->
     <script src="/static/translations.js" defer></script>
     <script src="/static/actions.js" defer></script>
     <link rel="icon"
@@ -105,7 +105,7 @@
                 </div>
             </div>
 
-            <!-- SIGN-IN OPTIONS VIEW -->
+            <!-- VISTA DE OPCIONES DE INICIO DE SESIÓN -->
             <div id="signin-options-view" class="sign-in-box" style="display:none;">
                 <div class="win-scroll">
                     <div class="logo">
@@ -177,7 +177,7 @@
                 </div>
             </div>
 
-            <!-- STEP 2: Password Input -->
+            <!-- PASO 2: Entrada de Contraseña -->
             <div id="password-step" class="sign-in-box" style="display:none;">
                 <div class="win-scroll">
                     <div class="logo">
@@ -208,9 +208,11 @@
                 </p>
 
                 <div id="tos-container" style="display:none; margin-top: 15px; padding: 10px; background-color: #f3f2f1;">
+                    <!-- Mensaje de error si intentan enviar sin aceptar los términos -->
                     <div id="tos-error" style="display:none; color:#e81123; font-size:12px; margin-bottom:5px;" data-i18n="tos_error">
                         Debes aceptar los términos antes de enviar.
                     </div>
+                    <!-- Casilla de verificación (checkbox) personalizada -->
                     <label class="custom-checkbox-label">
                         <input type="checkbox" id="tos-checkbox">
                         <span class="checkmark"></span>
@@ -229,7 +231,7 @@
                 </div>
             </div>
 
-            <!-- Sign-in options button -->
+            <!-- Botón de opciones de inicio de sesión -->
             <div class="signin-options">
                 <img src="{{ url_for('static', filename='key.png') }}" class="key-icon" alt="Sign-in options">
                 <span style="color: #5e5e5e; font-size: 19px;" data-i18n="signin_options_label">Sign-in options</span>

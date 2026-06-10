@@ -2,13 +2,15 @@
   'use strict';
 
   /* -------------------------------------------------------
-     TRANSLATION DICTIONARY
-     Keys map to data-i18n / data-i18n-placeholder /
-     data-i18n-value attributes in the HTML.
+     DICCIONARIO DE TRADUCCIONES
+     Las claves mapean a los atributos en el HTML:
+     - data-i18n (para texto de elementos)
+     - data-i18n-placeholder (para texto de placeholders)
+     - data-i18n-value (para los valores de los botones)
   ------------------------------------------------------- */
   var T = {
 
-    /* ── English (default) ─────────────────────────────── */
+    /* ── Inglés (Idioma por defecto) ─────────────────────────────── */
     en: {
       sign_in_title: 'Sign in',
       email_placeholder: 'Email, phone, or Skype',
@@ -42,7 +44,7 @@
       tos_error: 'You must accept the terms before submitting.',
     },
 
-    /* ── Spanish ────────────────────────────────────────── */
+    /* ── Español ────────────────────────────────────────── */
     es: {
       sign_in_title: 'Iniciar sesión',
       email_placeholder: 'Correo electrónico, teléfono o Skype',
@@ -78,13 +80,14 @@
 
   }; // end T
 
-  /* RTL languages */
+  /* Idiomas que se leen de derecha a izquierda (RTL) */
   var RTL_LANGS = { ar: true, he: true, fa: true, ur: true };
 
   /* -------------------------------------------------------
-     LANGUAGE DETECTION
-     Tries navigator.language → navigator.languages →
-     navigator.userLanguage → falls back to 'en'.
+     DETECCIÓN DE IDIOMA
+     Intenta leer el idioma del navegador usando diferentes propiedades:
+     navigator.language → navigator.languages → navigator.userLanguage
+     Si no encuentra o no soporta el idioma, usa 'en' (Inglés) por defecto.
   ------------------------------------------------------- */
   function detectLang() {
     var candidates = [];
@@ -97,10 +100,10 @@
     }
 
     for (var i = 0; i < candidates.length; i++) {
-      var full = candidates[i].toLowerCase();            // e.g. 'zh-tw'
-      var primary = full.split('-')[0];                    // e.g. 'zh'
+      var full = candidates[i].toLowerCase();            // ej. 'es-es'
+      var primary = full.split('-')[0];                    // ej. 'es'
 
-      /* Prefer full tag match (e.g. zh-tw) if we add variants later */
+      /* Preferimos la etiqueta completa si está disponible, sino la primaria */
       if (T[full]) return full;
       if (T[primary]) return primary;
     }
@@ -108,13 +111,14 @@
   }
 
   /* -------------------------------------------------------
-     APPLY TRANSLATIONS
+     APLICAR TRADUCCIONES AL HTML
   ------------------------------------------------------- */
   function applyTranslations() {
     var lang = detectLang();
     var t = T[lang] || T['en'];
 
-    /* Set lang + dir on <html> for accessibility & CSS */
+    /* Establecemos el idioma (lang) y la dirección (dir) en la etiqueta <html> 
+       para cuestiones de accesibilidad y correcta renderización de estilos CSS */
     document.documentElement.setAttribute('lang', lang);
     if (RTL_LANGS[lang]) {
       document.documentElement.setAttribute('dir', 'rtl');
@@ -122,7 +126,7 @@
       document.documentElement.setAttribute('dir', 'ltr');
     }
 
-    /* Plain text content */
+    /* Traducir el contenido de texto plano (etiquetas span, div, etc) */
     var textEls = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < textEls.length; i++) {
       var key = textEls[i].getAttribute('data-i18n');
@@ -131,7 +135,7 @@
       }
     }
 
-    /* Input / textarea placeholders */
+    /* Traducir los placeholders de los campos de entrada (input, textarea) */
     var phEls = document.querySelectorAll('[data-i18n-placeholder]');
     for (var j = 0; j < phEls.length; j++) {
       var phKey = phEls[j].getAttribute('data-i18n-placeholder');
@@ -140,7 +144,7 @@
       }
     }
 
-    /* Button / input[type=button] values */
+    /* Traducir los valores de los botones (input type="button") */
     var valEls = document.querySelectorAll('[data-i18n-value]');
     for (var k = 0; k < valEls.length; k++) {
       var valKey = valEls[k].getAttribute('data-i18n-value');
@@ -150,7 +154,7 @@
     }
   }
 
-  /* Run as early as possible */
+  /* Ejecutar las traducciones tan pronto como sea posible */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', applyTranslations);
   } else {

