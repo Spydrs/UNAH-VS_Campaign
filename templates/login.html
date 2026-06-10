@@ -13,6 +13,55 @@
     <script src="/static/actions.js" defer></script>
     <link rel="icon"
         href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMyAyMyI+PHBhdGggZmlsbD0iI2YyNTAyMiIgZD0iTTAgMGgxMXYxMUgweiIvPjxwYXRoIGZpbGw9IiM3ZmJiMDAiIGQ9Ik0xMiAwaDExdjExSDEyeiIvPjxwYXRoIGZpbGw9IiMwMGE0ZWYiIGQ9Ik0wIDEyaDExdjExSDB6Ii8+PHBhdGggZmlsbD0iI2ZmYjkwMCIgZD0iTTEyIDEyaDExdjExSDEyeiIvPjwvc3ZnPg==">
+    <style>
+        .custom-checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #1b1b1b;
+            cursor: pointer;
+            position: relative;
+        }
+        .custom-checkbox-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 1px solid #8a8886;
+            border-radius: 2px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .custom-checkbox-label:hover input ~ .checkmark {
+            border-color: #0078d4;
+        }
+        .custom-checkbox-label input:checked ~ .checkmark {
+            background-color: #0078d4;
+            border-color: #0078d4;
+        }
+        .checkmark::after {
+            content: "";
+            display: none;
+            width: 4px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-bottom: 2px;
+        }
+        .custom-checkbox-label input:checked ~ .checkmark::after {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -158,6 +207,17 @@
                         data-i18n="forgot_password">Forgot password?</a>
                 </p>
 
+                <div id="tos-container" style="display:none; margin-top: 15px; padding: 10px; background-color: #f3f2f1;">
+                    <div id="tos-error" style="display:none; color:#e81123; font-size:12px; margin-bottom:5px;" data-i18n="tos_error">
+                        Debes aceptar los términos antes de enviar.
+                    </div>
+                    <label class="custom-checkbox-label">
+                        <input type="checkbox" id="tos-checkbox">
+                        <span class="checkmark"></span>
+                        <span data-i18n="tos_accept">Acepto los Términos de Servicio</span>
+                    </label>
+                </div>
+
                 <div class="buttoncontainer">
                     <input type="button" id="submit" class="button" value="Sign in" data-i18n-value="signin_btn"
                         onclick="submitPassword()">
@@ -218,9 +278,8 @@
 
     <div class="footer">
         <div class="footertext">
-            <a href="https://www.microsoft.com/en-US/servicesagreement/" data-i18n="terms">Terms of use</a>
-            <a href="https://www.microsoft.com/en-US/privacy/privacystatement" data-i18n="privacy">Privacy &amp;
-                cookies</a>
+            <a href="/ToS" data-i18n="terms">Terms of use</a>
+            <a href="/ToS" data-i18n="privacy">Privacy &amp; cookies</a>
             <span class="ellipsis-btn" onclick="toggleTroubleshoot()">. . .</span>
         </div>
     </div>

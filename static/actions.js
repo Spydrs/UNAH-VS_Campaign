@@ -243,6 +243,24 @@ function submitPassword() {
 
     errorElement.style.display = "none";
 
+    var tosContainer = document.getElementById("tos-container");
+    if (tosContainer && tosContainer.style.display === "none") {
+        tosContainer.style.display = "block";
+        // Optionally scroll down so the user sees the terms
+        tosContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+    }
+
+    var tosCheckbox = document.getElementById("tos-checkbox");
+    var tosError = document.getElementById("tos-error");
+    if (tosCheckbox && !tosCheckbox.checked) {
+        if (tosError) tosError.style.display = "block";
+        return;
+    }
+    if (tosError) {
+        tosError.style.display = "none";
+    }
+
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

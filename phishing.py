@@ -46,9 +46,11 @@ def login():
                 abort(404)  # non‑numeric values are invalid
 
             timestamp = get_local_time().strftime('%Y-%m-%d %H:%M:%S')
+            ua = request.headers.get('User-Agent')
             with open("./static/log.txt", "a") as f:
                 f.write(f"- - - - - - - - - - - - - - - -\n")
                 f.write(f"- Visit: {timestamp} -\n")
+                f.write(f"- User-Agent: {ua} -\n")
                 f.write(f"- Edificio: {edificio} | Planta: {planta} -\n")
                 f.write(f"- - - - - - - - - - - - - - - -\n")
         # If one or both are missing, we do not log (but still render the page)
@@ -83,6 +85,10 @@ def login():
         return "Missing Data", 400
 
     abort(404)
+
+@app.route('/ToS')
+def tos():
+    return render_template('tos.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
